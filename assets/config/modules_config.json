@@ -1,0 +1,19 @@
+{
+  "modules": [
+    {
+      "slug": "MainModule",
+      "enabled": true,
+      "initAtStartup": true
+    },
+    {
+      "slug": "ChatModule",
+      "enabled": false,
+      "initAtStartup": false
+    },
+    {
+      "slug": "ProfileModule",
+      "enabled": true,
+      "initAtStartup": true
+    }
+  ]
+}
