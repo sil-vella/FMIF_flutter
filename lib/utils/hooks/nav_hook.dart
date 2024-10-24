@@ -1,6 +1,6 @@
-import 'hook.dart';
+// nav_hook.dart or navigation_item_hook.dart
+import 'hook.dart'; // Import the base Hook class
 
-// NavigationItem class definition
 class NavigationItem {
   final String title;
   final String route;
@@ -8,5 +8,11 @@ class NavigationItem {
   NavigationItem({required this.title, required this.route});
 }
 
-// Global instance of Hook for NavigationItem
-final navigationHook = Hook<List<NavigationItem>>();
+class NavigationItemHook extends Hook<List<NavigationItem>> {
+  NavigationItemHook();
+
+  // Register a callback with a list of navigation items
+  void register(List<NavigationItem> Function() callback) {
+    super.register(callback);
+  }
+}

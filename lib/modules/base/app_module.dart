@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/utils/hooks/hook.dart';
+import 'package:flutter_core/main_providers/app_state_provider.dart';
 import 'package:flutter_core/utils/hooks/nav_hook.dart';
-import 'package:flutter_core/modules/base/module_registry.dart';
-import 'package:flutter_core/main_providers/app_state_provider.dart'; // Import the AppStateProvider
+import 'package:flutter_core/modules/base/module_manager.dart';
 
-/// AppModule is an abstract class that defines the basic interface for all modules.
-/// All modules should extend this class and implement its methods.
 abstract class AppModule {
   final AppStateProvider appStateProvider;
 
-  // Constructor to pass the AppStateProvider
   AppModule(this.appStateProvider);
 
-  void init();
+  // Optional: Called when the module is initialized
+  void init() {}
 
-  void dispose();
+  // Optional: Called when the module is disposed
+  void dispose() {}
 
-  void registerNavigation(Hook<List<NavigationItem>> navigationHook);
-
-  // New method to optionally register navigation hooks
-  void registerNavigationHook(ModuleRegistry moduleRegistry) {
-    // Default behavior: do nothing, this is for modules without navigation
+  // Registers a module's state with the AppStateProvider
+  void registerState(String moduleName, ChangeNotifier state) {
+    appStateProvider.updateModuleState(moduleName, state);
   }
 
-  Map<String, WidgetBuilder> getRoutes();
+  // Registers navigation items through a hook
+  NavigationItemHook? getNavigationHook() {
+    return null; // Override this in specific modules if they have navigation items
+  }
+
+  // Registers a module's specific hook into the ModuleRegistry
+  void registerNavigationHook(ModuleRegistry moduleRegistry) {
+    // Only register the hook if the module has navigation items
+    final hook = getNavigationHook();
+    if (hook != null) {
+      moduleRegistry.registerNavigationHook(hook);
+    }
+  }
+
+  // Gets routes defined by the module
+  Map<String, WidgetBuilder> getRoutes() {
+    return {};
+  }
 }

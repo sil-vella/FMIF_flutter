@@ -6,12 +6,12 @@
       "initAtStartup": true
     },
     {
-      "slug": "ChatModule",
+      "slug": "ProfileModule",
       "enabled": false,
       "initAtStartup": false
     },
     {
-      "slug": "ProfileModule",
+      "slug": "LoginModule",
       "enabled": true,
       "initAtStartup": true
     }
